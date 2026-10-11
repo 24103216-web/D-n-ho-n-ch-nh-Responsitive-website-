@@ -1,0 +1,113 @@
+/* ==========================================================================
+   1. MOBILE-FIRST VIEW (Mặc định cho di động)
+   ========================================================================== */
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+figure {
+  background-color: #f4f4f4;
+  color: #333333;
+  border: 2px solid #ccc;
+  margin: 0;
+  padding: 10px;
+  text-align: center;
+}
+
+/* Đảm bảo hình ảnh co giãn đều trong figure */
+figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+
+/* ==========================================================================
+   2. TABLET VIEW (Kích hoạt từ 772px)
+   ========================================================================== */
+@media screen and (min-width: 772px) {
+  .grid-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* ĐỀ BÀI YÊU CẦU: Đặt border-radius cho figure để tạo hình tròn */
+  figure {
+    border-radius: 50%;
+    width: 280px;           /* Cố định chiều rộng và chiều cao bằng nhau */
+    height: 280px;
+    margin: 0 auto;         /* Căn giữa hình tròn trong ô */
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;       /* Cắt bỏ phần dư thừa ngoài vòng tròn */
+  }
+
+  figure img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;     /* Bo tròn cả hình ảnh bên trong */
+    object-fit: cover;
+  }
+
+  /* ĐỀ BÀI YÊU CẦU: Figure cuối cùng chiếm cả 2 cột */
+  figure:last-child {
+    grid-column: span 2;
+  }
+}
+
+
+/* ==========================================================================
+   3. LARGE SCREEN VIEW (Kích hoạt từ 992px)
+   ========================================================================== */
+@media screen and (min-width: 992px) {
+  /* ĐỀ BÀI YÊU CẦU: Xóa border-radius khỏi tất cả figure (trở lại hình vuông/chữ nhật) */
+  figure {
+    border-radius: 0;
+    width: auto;
+    height: auto;
+    overflow: visible;
+  }
+
+  figure img {
+    width: 100%;
+    height: auto;
+    border-radius: 0;
+  }
+
+  /* ĐỀ BÀI YÊU CẦU: Mỗi figure thứ 3 (3rd figure) chiếm 2 cột */
+  figure:nth-child(3n) {
+    grid-column: span 2;
+  }
+}
+
+
+/* ==========================================================================
+   4. PREFERS-REDUCED-MOTION (Tắt hiệu ứng cuộn)
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+
+/* ==========================================================================
+   5. DARK COLOR SCHEME (Bảng màu tối)
+   ========================================================================== */
+@media (prefers-color-scheme: dark) {
+  figure {
+    background-color: #1a1a1a;
+    color: #ffff00; /* Màu vàng tươi đạt chuẩn độ tương phản WAVE */
+    border-color: #000000;
+  }
+}
